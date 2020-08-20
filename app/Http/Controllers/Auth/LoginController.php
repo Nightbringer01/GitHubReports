@@ -61,11 +61,11 @@ class LoginController extends Controller
      */
     public function handleGithubCallback()
     {
-        try {
+        // try {
             $user = Socialite::driver('github')->user();
-        } catch (Exception $e) {
-            return Redirect::to('auth/github');
-        }
+        // } catch (Exception $e) {
+        //     return Redirect::to('auth/github');
+        // }
 
         $authUser = User::findOrCreate($user);
 
