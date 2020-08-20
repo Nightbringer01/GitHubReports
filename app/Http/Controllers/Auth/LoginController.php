@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Socialite\Facades\Socialite;
+use App\User;
+use Exception;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +41,36 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToGithub(){
+
+        return Socialite::driver('github')->redirect();
+        //->setScopes(['read:user', 'public_repo'])
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleGithubCallback()
+    {
+        try {
+            $user = Socialite::driver('github')->user();
+        } catch (Exception $e) {
+            return Redirect::to('auth/github');
+        }
+
+        $authUser = User::findOrCreate($user);
+
+        Auth::login($authUser, true);
+
+        // $user->token;
     }
 }

@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/githubauth', 'Auth\LoginController@handleGithubCallback');
+
+Route::get('/githublogin', 'Auth\LoginController@redirectToGithub');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
