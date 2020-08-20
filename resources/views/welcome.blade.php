@@ -88,7 +88,7 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ url('/githublogin') }}">Login</a> <p> to get started</p>
+                        <a href="{{ url('auth/github') }}">Login</a> <p> to get started</p>
                     @endauth
                 </div>
             </div>

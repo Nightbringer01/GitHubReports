@@ -18,9 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/githubauth', 'Auth\LoginController@handleGithubCallback');
+Route::get('auth/githubcallback', 'Auth\LoginController@handleGithubCallback');
 
-Route::get('/githublogin', 'Auth\LoginController@redirectToGithub');
+Route::get('auth/github', 'Auth\LoginController@redirectToGithub');
 
 Auth::routes();
 
