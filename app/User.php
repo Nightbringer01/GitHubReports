@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email'
+        'name', 'email', 'github_id', 'avatar'
     ];
 
     /**
@@ -36,8 +36,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
-    ];
+    protected $casts = [];
 
     static function findOrCreateUser(TwoUser $githubUser)
     {
@@ -45,11 +44,13 @@ class User extends Authenticatable
             return $authUser;
         }
 
-        return User::create([
-            'name' => $githubUser->name,
-            'email' => $githubUser->email,
-            'github_id' => $githubUser->id,
-            'avatar' => $githubUser->avatar
-        ]);
+        $user = new User();
+        $user->name = $githubUser->name;
+        $user->email = $githubUser->email;
+        $user->github_id = $githubUser->id;
+        $user->avatar = $githubUser->avatar;
+        $user->save();
+
+        return $user;
     }
 }
