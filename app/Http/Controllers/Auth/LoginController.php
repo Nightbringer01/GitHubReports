@@ -48,10 +48,11 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToGithub(){
-
-        return Socialite::driver('github')->redirect();
-        //->setScopes(['read:user', 'public_repo'])
+    public function redirectToGithub()
+    {
+        return Socialite::driver('github')
+            ->scopes(['read:user', 'repo'])
+            ->redirect();
     }
 
     /**
@@ -70,7 +71,6 @@ class LoginController extends Controller
         $authUser = User::findOrCreateUser($user);
 
         Auth::login($authUser, true);
-
-        // $user->token;
+        return Redirect::to('home');
     }
 }

@@ -2,12 +2,10 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Socialite\Contracts\User as ContractsUser;
-use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as TwoUser;
+
 
 class User extends Authenticatable
 {
@@ -55,6 +53,12 @@ class User extends Authenticatable
         return $user;
     }
 
+    // public static function find(Authenticatable $user){
+    //     if ($authUser = User::where('github_id', $user->id)->first()) {
+    //         return new User($authUser);
+    //     }
+    // }
+
     public function setAttribute($key, $value)
     {
         $isRememberTokenAttribute = $key == $this->getRememberTokenName();
@@ -62,4 +66,14 @@ class User extends Authenticatable
             parent::setAttribute($key, $value);
         }
     }
+
+    public function repos(){
+        return $this->hasMany('App\Repo');
+    }
+
+    public function organizations()
+    {
+        return $this->hasMany('App\Organization');
+    }
+
 }

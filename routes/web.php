@@ -22,6 +22,8 @@ Route::get('auth/githubcallback', 'Auth\LoginController@handleGithubCallback');
 
 Route::get('auth/github', 'Auth\LoginController@redirectToGithub');
 
+Route::get('home/loadrepos', 'HomeController@LoadRepos')->name('loadrepos');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
