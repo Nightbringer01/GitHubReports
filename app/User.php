@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Socialite\Contracts\User as ContractsUser;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\User as TwoUser;
 
 class User extends Authenticatable
 {
@@ -36,7 +39,7 @@ class User extends Authenticatable
     protected $casts = [
     ];
 
-    private static function findOrCreateUser($githubUser)
+    static function findOrCreateUser(TwoUser $githubUser)
     {
         if ($authUser = User::where('github_id', $githubUser->id)->first()) {
             return $authUser;

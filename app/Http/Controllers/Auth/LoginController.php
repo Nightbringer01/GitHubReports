@@ -67,7 +67,7 @@ class LoginController extends Controller
             return Redirect::to('auth/github');
         }
 
-        $authUser = User::findOrCreate($user);
+        $authUser = User::findOrCreateUser($user);
 
         Auth::login($authUser, true);
 
