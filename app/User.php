@@ -49,6 +49,7 @@ class User extends Authenticatable
         $user->email = $githubUser->email;
         $user->github_id = $githubUser->id;
         $user->avatar = $githubUser->avatar;
+        $user->accesstoken = $githubUser->token;
         $user->save();
 
         return $user;
