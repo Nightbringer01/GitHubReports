@@ -38,7 +38,7 @@ class User extends Authenticatable
      */
     protected $casts = [];
 
-    static function findOrCreateUser(TwoUser $githubUser)
+    public static function findOrCreateUser(TwoUser $githubUser)
     {
         if ($authUser = User::where('github_id', $githubUser->id)->first()) {
             return $authUser;
@@ -53,5 +53,13 @@ class User extends Authenticatable
         $user->save();
 
         return $user;
+    }
+
+    public function setAttribute($key, $value)
+    {
+        $isRememberTokenAttribute = $key == $this->getRememberTokenName();
+        if (!$isRememberTokenAttribute) {
+            parent::setAttribute($key, $value);
+        }
     }
 }
