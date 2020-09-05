@@ -71,6 +71,6 @@ class LoginController extends Controller
         $authUser = User::findOrCreateUser($user);
 
         Auth::login($authUser, true);
-        return Redirect::to('home');
+        return Redirect::to('repo');
     }
 }

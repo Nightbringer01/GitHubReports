@@ -18,11 +18,15 @@ class CreateReposTable extends Migration
             $table->string("name");
             $table->unsignedBigInteger("user_id");
             $table->timestamps();
+            $table->boolean('active')->default(false);
+            $table->text('message')->nullable();
+            $table->text('post_report_message')->nullable();
+            $table->text('default_issue_label')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
